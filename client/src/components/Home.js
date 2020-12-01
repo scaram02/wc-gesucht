@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-
+import '../stylesheets/home.css'
 export default class Home extends Component {
     render() {
         return (
-            <div>
-                <h1>HOME</h1>
-            <Link to="/login">go to login</Link>
-            <Link to="/signup">Sign pu</Link>
+            <div className="home-container">
+            <div className="text-container">
+            <h1>WC Gesucht</h1>
+            <div className="home-links">
+            <Link to="/login">Log in</Link>
+            <Link to="/signup">Sign up</Link>
+            <Link to='about'>About</Link>
+            </div>
+            </div>
             </div>
         )
     }
 }
 
-
-// make this menu dynamic with logout button?

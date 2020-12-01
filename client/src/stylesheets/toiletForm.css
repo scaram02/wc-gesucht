@@ -1,0 +1,55 @@
+.form-container {
+    background-color: rgb(245, 244, 239);
+    height: 100vh;
+    position: relative;
+    /* color: rgb(64, 64, 64); */
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 0; 
+    /* margin: auto ?? */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.form-container textarea, select, input:not([type='checkbox']) {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-indent: 5px;
+    border: none;
+} 
+
+.form-container textarea {
+    height: 80px
+}
+
+
+.checkboxes {
+display: flex;
+flex-direction: column;
+}
+
+
+span {
+    margin-left: 10px;
+}
+
+.form-container button {
+    margin-top: 15px;
+    height: 35px;
+    border: none;
+    background-color: rgb(193,204, 215);
+    color: rgb(64, 64, 64);
+    font-weight: bold;
+    font-size: 16px
+}
+
+.form-container button:hover {
+    background-color: rgb(179, 196, 212)
+}

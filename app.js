@@ -21,7 +21,8 @@ require("./configs/passport");
 
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/wcs", {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useFindAndModify: false // ?????
   })
   .then(x => {
     console.log(
@@ -67,6 +68,7 @@ const MongoStore = require("connect-mongo")(session);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
+    useUnifiedTopology: true,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
@@ -92,17 +94,15 @@ app.use("/", index);
 const dashboardRoutes = require("./routes/dashboard");
 app.use("/api/dashboard", dashboardRoutes);
 
-// const inviteRoutes = require("./routes/invite");
-// app.use("/api/invite", inviteRoutes);
-
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 
 const addToiletRoutes = require("./routes/add");
 app.use("/api/add", addToiletRoutes);
 
-// const settingsRoutes = require("./routes/settings");
-// app.use("/api/settings", settingsRoutes);
+const addCommentRoutes = require("./routes/comments");
+app.use("/api/comments", addCommentRoutes);
+
 
 app.use((req, res) => {
   // If no routes match, send them the React HTML.

@@ -1,19 +1,25 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
+import axios from 'axios'
 import Signup from "./components/Signup";
 import Home from './components/Home'
 import Login from "./components/Login";
 import ToiletForm from "./components/ToiletForm";
-import Dashboard from './components/Dashboard'
+// import Dashboard from './components/Dashboard'
 import Map from './components/Map'
 import ToiletView from './components/ToiletView'
-
+import About from './components/About'
+import Profile from './components/Profile'
 
 class App extends React.Component {
   state = {
     user: this.props.user
   };
+
+  componentDidMount(){
+    this.getAllToilets()
+  }
 
   setUser = user => {
     this.setState({
@@ -21,11 +27,27 @@ class App extends React.Component {
     });
   };
 
+getAllToilets = () => {
+  axios
+    .get("/api/add/mytoilets") // /commetn?
+    .then(response => {
+      this.setState({
+        allToilets: response.data
+      });
+      console.log(this.state.allToilets)
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+
   render() {
     return (
       <div className="App">
         <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/about" component={About}/>
           <Route
             exact
             path="/signup"
@@ -37,18 +59,13 @@ class App extends React.Component {
             path="/login"
             render={props => <Login {...props} setUser={this.setUser} />}
           />
-          {/* <Route
-            exact
-            path="/add"
-            render={props => <ToiletForm {...props} user={this.state.user}  />}
-          /> */}
           <Route
             exact
             path="/add/:id"
-            render={props => <ToiletForm {...props} user={this.state.user}  />}
+            render={props => <ToiletForm {...props} user={this.state.user} />}
           />
           <>
-                 <Route
+           <Route
               exact
               path="/dashboard"
               render={props => (
@@ -56,12 +73,27 @@ class App extends React.Component {
                   {...props}
                   user={this.state.user}
                   // clearUser={this.setUser} // should go on Dahs component
-                />)}/>
+              />)}/>
 
-                <Route 
+               
+               <Route 
                 exact path="/toilets/:id" 
-                component={ToiletView}
-                />
+                render={props => 
+                <ToiletView 
+                  {...props} 
+                  state={this.state} // ??
+                  getAllToilets={this.getAllToilets}
+                  user={this.state.user}  />}
+               />
+
+             <Route exact path="/profiles/:username" 
+              render={props => (
+             <Profile 
+             {...props}
+             user={this.state.user}
+             getAllToilets={this.getAllToilets} // ??????
+          />
+        )}/>
           </>
         </Switch>
       </div>

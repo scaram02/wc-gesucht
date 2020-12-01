@@ -1,0 +1,79 @@
+.view {
+    background-color: rgb(245, 244, 239);
+    height: 100vh;
+    overflow: auto;
+    width: 100vw;
+    text-align: center;
+    color: rgb(64, 64, 64)
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.toilet-infos {
+   margin: 20px 300px;
+}
+
+.toilet-infos h2 {
+    font-size: 24px;
+}
+
+.toilet-infos h3 {
+    font-size: 20px;
+}
+
+.toilet-infos a {
+    color: rgb(64, 64, 64);
+    text-decoration: none
+}
+
+.toilet-infos a:hover {
+    color: darkolivegreen
+}
+
+.author {
+    /* text-align: left; */
+    font-weight: bold;
+    margin: 30px 0px 0px 0px;
+}
+
+.delete-toilet {
+    background-color: rgb(245, 244, 239);
+    border: none;
+    font-size: 14px;
+}
+
+.delete-toilet:hover {
+    color: darkred;
+}
+
+.delete-toilet:focus {
+    border: none;
+    outline: none;
+}
+
+
+.perks {
+ display: flex; 
+ flex-direction: row;
+flex-wrap: wrap;
+justify-content: center;
+width: 100%;
+margin: auto
+
+}
+
+.perks p{
+    /* display: flex; */
+    /* flex-direction: row; */
+    background-color: darkolivegreen;
+    margin: 10px;
+    padding: 3px 15px;
+    text-align: center;
+    color: rgb(245, 244, 239);
+    font-weight: bold;
+}
+

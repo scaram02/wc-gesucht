@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
-// const Toilet = require("../models/Toilet");
+const Toilet = require("../models/Toilet");
 
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
@@ -12,6 +12,10 @@ router.post("/signup", (req, res) => {
   }
   if (password.length < 8) {
     return res.status(400).json({ message: "Password is too short" });
+  }
+  // added by me in November, delete if necessary
+  if (username.includes(' ')){
+    return res.status(400).json({ message: "Username can't contain spaces"})
   }
 
   User.findOne({ username: username })
@@ -69,5 +73,26 @@ router.delete("/logout", (req, res) => {
 router.get("/loggedin", (req, res) => {
   res.json(req.user);
 });
+
+
+
+// get a user by username (not login purposes but profile)
+router.get("/:username", (req, res) => {
+  User.findOne({ username: req.params.username })
+    .populate({
+      path: "user" // ???
+
+    })
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ message: "This user does not exist" });
+      } else res.json(user);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+
 
 module.exports = router;

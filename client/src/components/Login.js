@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { login } from "../services/auth";
-// import "./Signup.css";
+import "../stylesheets/auth.css";
 
 class Login extends Component {
   state = {
@@ -28,7 +29,6 @@ class Login extends Component {
         // no error
         // lift the data up to the App state
         this.props.setUser(data);
-        // redirect to "/projects"
         this.props.history.push("/dashboard");
       }
     });
@@ -36,45 +36,40 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="chalkboard-container">
-        <div className="signup-form-box">
-          <div>
-            <h2 className="sign-up-header">Log in</h2>
-          </div>
 
+        <div className='auth-page-container'>
           <form onSubmit={this.handleSubmit}>
-            <div className="field-container">
-              <div className="fields">
-                <label htmlFor="username" className="signup-label">
-                  Username:{" "}
+          <h1>Log in</h1>
+            <div className="input-container">
+                <label htmlFor="username">
                 </label>
                 <input
                   type="text"
                   name="username"
                   id="username"
-                  placeholder="username"
+                  placeholder="Username"
                   value={this.state.username}
                   onChange={this.handleChange}
                 />
-              </div>
+            </div>
 
-              <div className="fields">
-                <label htmlFor="password">Password: </label>
+            <div className="input-container">
+                <label htmlFor="password"></label>
                 <input
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="password"
+                  placeholder="Password"
                   value={this.state.password}
                   onChange={this.handleChange}
                 />
-              </div>
+            </div>
 
-              <div>
-                <button className="signup-button chalk-border" type="submit">
+
+                <button type="submit" className="auth-button">
                   Log in
                 </button>
-              </div>
+                <p><Link to='/signup'>Or create an account</Link></p>
 
               <div>
                 {this.state.error && (
@@ -83,10 +78,9 @@ class Login extends Component {
                   </alert>
                 )}
               </div>
-            </div>
           </form>
         </div>
-      </div>
+
     );
   }
 }

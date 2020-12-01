@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
-import Checkbox from './Checkbox' 
+import {Link} from 'react-router-dom'
+import '../stylesheets/toiletForm.css'
+
 
 
 class ToiletForm extends Component {
@@ -10,16 +12,18 @@ class ToiletForm extends Component {
     this.state = {
         toilet: {},
         allToilets: [],
-        // genderNeutral: false,
-        // free: false
-        checkboxes: [
-          {value: "genderNeutral", checked: false},
-          {value: "free", checked: false}
-        ]
+        checkedOptions: [],
+        genderNeutral: false,
+        free: false,
+        femProd: false,
+        changingTable: false,
+        barrierFree: false,
+        cost: 0,         
     }
 
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this)
+  
   }
   
 
@@ -29,34 +33,48 @@ class ToiletForm extends Component {
         })
     }
 
-  // handleCheckboxChange = e => {
-  //   this.setState({
-  //     [e.target.name]: !this.state.checked
-  //   })
-  // }
+// Need to make more efficient
+// If you are reading this please feel free to reach out
+    handleFreeChecks = e => {
+      this.setState({
+        free: !this.state.free,
+      })
+    }
 
-  handleCheckbox = e => {
-    const checkboxes = this.state.checkboxes
-    checkboxes.forEach(checkbox => {
-      if (checkbox.value === e.target.value){
-        checkbox.checked = e.target.checked
-      }
-    })
-    this.setState({ checkboxes: checkboxes})
-    console.log(this.state.checkboxes)
-  }
+    handleGenderChecks = e => {
+      this.setState({
+        genderNeutral: !this.state.genderNeutral
+      })
+    }
+  
+    handleFemProdChecks = e => {
+      this.setState({
+        femProd: !this.state.femProd
+      })
+    }
+
+    handleChangingTableChecks = e => {
+      this.setState({
+        changingTable: !this.state.changingTable
+      })
+    }
+
+    handleBarrierChecks = e => {
+      this.setState({
+        barrierFree: !this.state.barrierFree
+      })
+    }
 
 
   handleSubmit = e => {
     e.preventDefault()
     const id = this.props.match.params.id
-    const {name, description, location, lng, lat, locType, genderNeutral, free} = this.state;
+    const {name, description, lng, lat, locType, genderNeutral, free, femProd, changingTable, barrierFree, cost} = this.state;
     axios
     .put(`/api/add/${id}`, 
-    {name, description, location, lng, lat, locType, genderNeutral, free})
+    {name, description, lng, lat, locType, genderNeutral, free, femProd, changingTable, barrierFree, cost})
     .then((data)=>{
-      console.log(data)
-      this.props.history.push('/dashboard')
+      this.props.history.push(`/toilets/${id}`)
     })
   }
 
@@ -67,20 +85,23 @@ axios
 .then(res => {
   this.setState({
     toilet: res.data, 
-    allToilets: res.data
+    allToilets: res.data,
   })
 })
 }
 
 
     render() {
+      const costChecker = <input type="text" name="cost" placeholder="Cost" value={this.state.cost || ''} onChange={this.handleChange}/>
+      const cost = !this.state.free? costChecker : ''
         return (
             <div>
+              <div className="form-container">
                 <form onSubmit={this.handleSubmit}>
                 <input
                 type="text"
                 name="name"
-                placeholder="Add toilet name here"
+                placeholder="Give this restroom a name to help others identify it"
                 value={this.state.name || ''}
                 onChange={this.handleChange}
               />
@@ -88,22 +109,17 @@ axios
                 <textarea
                 type="text"
                 name="description"
-                placeholder="Add description here"
+                placeholder="Describe this restroom"
                 value={this.state.description || ''}
                 onChange={this.handleChange}
               />
 
-              <input
-                type="text"
-                name="location"
-                placeholder="Add location here"
-                value={this.state.location || ''}
-                onChange={this.handleChange}
-              />
+       
               <select 
               value={this.state.locType}
               name='locType'
               onChange={this.handleChange}>
+                <option value="null">Choose a location type</option>
                 <option value="Public">Public</option>
                 <option value="Cafe/Restaurant">Cafe/Restaurant</option>
                 <option value="Museum">Museum</option>
@@ -114,25 +130,51 @@ axios
                 <option value="Other">Other</option>
               </select>
 
-              {/* <label>
-								<input type="checkbox"
-									checked={this.state.free}
-									onChange={this.handleCheckboxChange}
-                  name='free'
-                  
-								/>
-								Free
-							</label> */}
-              <ul>
-        {
-          this.state.checkboxes.map((checkboxes, i) => {
-            return (<Checkbox key={i} handleCheckbox={this.handleCheckbox} {...checkboxes} />)
-          })
-        }
-        </ul>
-                <button className="button" type="submit">Submit data</button>
+              {cost}
+<label style={{marginTop: "15px"}}>
+  <input type="checkbox" 
+  checked={this.state.free} 
+  onChange={this.handleFreeChecks} 
+  name="free"/><span>No cost</span>
+</label>
+
+
+
+<div className='checkboxes'>
+<label>
+  <input type="checkbox" 
+  value='genderNeutral' 
+  onChange={this.handleGenderChecks} 
+  name="genderNeutal"
+  />
+  <span>Gender neutral</span>
+</label>
+<label>
+  <input type="checkbox" 
+  checked={this.state.femProd} 
+  onChange={this.handleFemProdChecks} 
+  name="femProd"/><span>Feminine Products</span>
+</label>
+<label>
+  <input type="checkbox" 
+  checked={this.state.changingTable} 
+  onChange={this.handleChangingTableChecks} 
+  name="changingTable"/><span>Infant Changing Table</span>
+</label>
+<label>
+  <input type="checkbox" 
+  checked={this.state.barrierFree} 
+  onChange={this.handleBarrierChecks} 
+  name="barrierFree"/><span>Wheelchair accessible</span>
+</label>
+
+
+
+</div>
+
+                <button className="button" type="submit">Submit a review</button>
                 </form>
-              
+            </div>
             </div>
         )
     }

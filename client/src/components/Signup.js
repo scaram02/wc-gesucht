@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { signup } from "../services/auth";
-// import "./Signup.css";
+import "../stylesheets/auth.css"
 
 class Signup extends Component {
   state = {
@@ -29,57 +30,49 @@ class Signup extends Component {
         // lift the data up to the App state
         this.props.setUser(data);
         // redirect 
-        this.props.history.push("/add");
+        this.props.history.push("/dashboard");
       }
     });
   };
 
   render() {
     return (
-      <div className="chalkboard-container">
-
-        <div className="signup-form-box">
-
-        <div>
-          <h2 className="sign-up-header">Sign up</h2>
-          </div>
-
+        <div className='auth-page-container'>
         <form onSubmit={this.handleSubmit}>
-          
-          <div className="field-container">
-            <div className="fields">
-              <label htmlFor="username" className="signup-label">
-                Username:{" "}
+        <h1>Sign up</h1> 
+          <div className='input-container'>
+              <label htmlFor="username">
+                {/* Username:{" "} */}
               </label>
               <input
                 type="text"
                 name="username"
                 id="username"
-                placeholder="username"
+                placeholder="Username"
                 value={this.state.username}
                 onChange={this.handleChange}
               />
-            </div>
+          </div>
 
-            <div className="fields">
-              <label htmlFor="password" className="signup-label">
-                Password:{" "}
+            <div className='input-container'>
+              <label htmlFor="password">
+                {/* Password:{" "} */}
               </label>
               <input
                 type="password"
                 name="password"
                 id="password"
-                placeholder="password"
+                placeholder="Password"
                 value={this.state.password}
                 onChange={this.handleChange}
               />
             </div>
 
-            <div>
-              <button className="signup-button chalk-border" type="submit">
+        
+              <button type="submit" className='auth-button'>
                 Sign up
               </button>
-            </div>
+        <p><Link to='/login'>Or log in instead</Link></p>
 
             <div>
               {this.state.error && (
@@ -89,10 +82,9 @@ class Signup extends Component {
               )}
             </div>
 
-          </div>
+          
         </form>
         </div>
-      </div>
 
     );
   }

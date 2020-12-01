@@ -1,0 +1,60 @@
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-comment-container textarea {
+    resize: none;
+    width: 30%;
+    height: 80px; 
+}
+
+.add-comment-container button {
+border: none;
+background-color: rgb(245, 244, 239);
+font-weight: bold;
+color: rgb(87, 84, 61);
+/* margin-left: 15%; */
+margin-top: 0px;
+}
+
+.add-comment-container button:focus {
+    border: none;
+    outline: none;
+}
+
+.comment-container {
+    border: 2px solid rgb(87, 84, 61);
+    width: 50%;
+    margin: 15px auto;
+    background-color: rgb(193,204, 215);
+    color: rgb(43, 40, 33);
+    display: flex;
+
+}
+
+.comment-container p {
+    padding: 0px 30px;
+}
+
+.comment-container button {
+    background-color: rgb(193,204, 215);
+    border: none;
+    color: rgb(43, 40, 33);
+    font-size: 12px;
+    /* uncenters the button */
+    /* width: 20%;
+    align-content: center; */
+    width: 200px;
+    margin: auto
+}
+
+.comment-container button:hover {
+    color: darkred
+}
+
+.comment-container button:focus, button:visited {
+    border: none;
+    outline: none;
+}

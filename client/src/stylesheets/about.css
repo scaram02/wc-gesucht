@@ -1,0 +1,25 @@
+.about-page-container {
+    margin: auto;
+    /* width: 60%; */
+    padding: 10px;
+    color: rgb(64, 64, 64);
+    background-color: rgb(245, 244, 239);
+    height: 100vh;
+    display: flex;
+}
+
+.about {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.about h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: darkolivegreen;
+}
+
+.about a {
+    color: darkolivegreen;
+    text-decoration: none;
+}

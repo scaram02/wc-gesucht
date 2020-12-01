@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
-import mapboxgl, { LngLat, Layer, Feature, Marker } from 'mapbox-gl';
-import './map.css'
+import mapboxgl from 'mapbox-gl';
+import '../stylesheets/map.css'
 
 
 
 
 // make this private!
-mapboxgl.accessToken = `pk.eyJ1Ijoic2NhcmFtMDIiLCJhIjoiY2tha2EzeGdjMDBwNzJ3cnR4NTY0c2xueSJ9.okEwbRZu2x0aIbks4zmeVA`
+// mapboxgl.accessToken = `pk.eyJ1Ijoic2NhcmFtMDIiLCJhIjoiY2tha2EzeGdjMDBwNzJ3cnR4NTY0c2xueSJ9.okEwbRZu2x0aIbks4zmeVA`
+mapboxgl.accessToken = `pk.eyJ1Ijoic2NhcmFtMDIiLCJhIjoiY2syenk4YTlxMGtqejNncDhwb29yNDF5cCJ9.p5Vo_c8qKilksBjL-TZZyg`
 
 
 export default class Map extends Component {
@@ -20,9 +21,6 @@ export default class Map extends Component {
         lng: 5,
         lat: 45,
         zoom: 3,
-        // name: '',
-        // description: '',
-        // location: '',
         }
 
         // this.handleSubmit = this.handleSubmit.bind(this)
@@ -32,7 +30,7 @@ export default class Map extends Component {
         componentDidMount() {
             const map = new mapboxgl.Map({
             container: this.mapContainer,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/scaram02/ckh6mzfik0ij019p5lwmpqjrx',
             center: [this.state.lng, this.state.lat],
             zoom: this.state.zoom
             });
@@ -48,7 +46,7 @@ export default class Map extends Component {
 
             let marker = new mapboxgl.Marker({
                 draggable: true,
-                color: "blue"
+                color: 'black' //midnightblue rgb(53, 54, 58
             }).setLngLat([13.40, 52.52]).addTo(map) 
 
 
@@ -63,22 +61,28 @@ export default class Map extends Component {
                 console.log("Marker location: ", this.state.lng, this.state.lat)
             })
 
-    
+    // this miht be te getalltoilets
             axios
             .get('/api/add', {})
             .then(res => {
                 const data = res.data
+
                 data.forEach(toilet => {
+                
+                const calcCost = (toilet.cost < 1)? `0.${toilet.cost*100}` : (toilet.cost === 1)? toilet.cost : `${toilet.cost}0`
+
                 const infos = 
-                `<div key=${toilet._id}>
+                `<div class="popup" key=${toilet._id}>
                 <a href="toilets/${toilet._id}">
-                <h1>${toilet.name}</h1></a></div>`
+                <h1>${toilet.name}</h1><h2>${(toilet.free || toilet.cost === 0)? `Cost: Free` : `Cost: €${calcCost}`}</h2></a></div>`
                 const popup = new mapboxgl.Popup({ offset: 10})
                 .setHTML(infos) 
                 
                
                 const coords = [toilet.lng, toilet.lat]
-                new mapboxgl.Marker({draggable: false})
+                const color = ((toilet.free || toilet.cost == 0)? "darkolivegreen" : "darkred")
+                
+                new mapboxgl.Marker({draggable: false, color: color})
                   .setLngLat(coords)
                   .setPopup(popup) 
                   .addTo(map)
@@ -98,17 +102,19 @@ export default class Map extends Component {
 
 handleSubmit = event => {
     event.preventDefault();
-    const {name, description, location, lng, lat, locType, genderNeutral, free} = this.state;
+    const {name, description, lng, lat, locType, genderNeutral, free, femProd, barrierFree, cost} = this.state;
     axios
     .post('/api/add', {
         lng,
         lat,
         name,
         description,
-        location,
         locType,
         genderNeutral,
         free,
+        femProd,
+        barrierFree,
+        cost,
         user: this.props.user
     })
     .then(toiletData => {
@@ -122,16 +128,18 @@ handleSubmit = event => {
 
 
     render() {
+
         return (
             <div>
                
-                <div className='sidebarStyle'>
-                <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}
+                <div className='page-container'>
+                <div className="sidebar-container">
+                <h1> Drag the black pin to a restroom location </h1>
+                <button onClick={this.handleSubmit}>Rate</button>
                 </div>
                 
-                <div ref={el => this.mapContainer = el} className="mapContainer"/>
+                <div ref={el => this.mapContainer = el} className="map-container"/>
                 <div>
-                 <button onClick={this.handleSubmit}>Submit me</button>
                    </div>
                 </div>
             </div>

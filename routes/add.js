@@ -3,13 +3,15 @@ const router = express.Router();
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
 const Toilet = require("../models/Toilet");
+const Comment = require('../models/Comment')
 
 // create a toilet
 router.post('/', (req, res) => {
-  const {name, description, location, lng, lat, locType, genderNeutral, free} = req.body
+  const {name, description, lng, lat, locType, genderNeutral, free, femProd, changingTable, barrierFree} = req.body
     Toilet.create({
-      name, description, location, lng, lat, locType, genderNeutral, free,
-      user: [req.user._id]
+      name, description, lng, lat, locType, genderNeutral, free, femProd, changingTable, barrierFree,
+      user: [req.user._id],
+      // comments: [req.comment._id]
     })
     .then(toilet => {
         console.log("let me see da toilet", toilet);
@@ -20,38 +22,62 @@ router.post('/', (req, res) => {
       })
 })
 
-// get all toilets
-router.get('/', (req, res, next) => {
-    Toilet.find(function (err, toilets) {
-        if (err) return next(err);
-        res.json(toilets);
-      });
-    });
 
-// get ind toilet by id
-router.get('/:id', function(req, res, next) {
-    Toilet.findById(req.params.id, function (err, toilet) {
-      if (err) return next(err);
-      res.json(toilet);
-    });
+
+router.get('/', (req, res, next) => {
+  Toilet.find()
+  .populate('user')
+  .populate({ path: "comments", populate: { path: "user" } })
+  .then(theToilets => {
+    res.json(theToilets)
+  })
+})
+
+
+
+router.get('/:id', (req, res, next) => {
+  Toilet.findById(req.params.id)
+  .populate('user')
+  .populate({ path: "comments", populate: { path: "user" } })
+  .then(response => {
+    res.json(response);
+  })
+  .catch(err => {
+    res.json(err);
   });
+  });
+
 
 
 // edit one
-router.put('/:id', function(req, res, next) {
-    Toilet.findByIdAndUpdate(req.params.id, req.body, function (err, toilet) {
+router.put('/:id', (req, res, next) => {
+    Toilet.findByIdAndUpdate(req.params.id, req.body, (err, toilet) => {
       if (err) return next(err);
       res.json(toilet);
     });
-  });
+  })
+
 
 // delete
-  router.delete('/:id', function(req, res, next) {
-   Toilet.findByIdAndRemove(req.params.id, req.body, function (err, toilet) {
+  router.delete('/:id', (req, res, next) => {
+   Toilet.findByIdAndRemove(req.params.id, req.body, (err, toilet) => {
       if (err) return next(err);
       res.json(toilet);
     });
   });
 
+
+// // links to getAllToilets() in App
+router.get("/mytoilets", (req, res, next) => {
+  Toilet.find()
+    .populate("user")
+    .then(allToilets => {
+      res.json(allToilets);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+ 
 
 module.exports = router;

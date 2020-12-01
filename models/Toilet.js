@@ -3,24 +3,26 @@ const Schema = mongoose.Schema;
 
 const toiletSchema = new Schema({
 name: String,
-location: String,
 description: String, 
-user: [
+user: 
   {
     type: Schema.Types.ObjectId,
     ref: "User"
-  }
-],
+  },
 lat: Number,
 lng: Number,
 locType: String,
 genderNeutral: Boolean,
-free: Boolean
-  // comments: [
-  //    {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Comment"
-  //   }]
+free: Boolean,
+femProd: Boolean,
+changingTable: Boolean,
+barrierFree: Boolean,
+cost: Number,
+comments: [
+     {
+    type: Schema.Types.ObjectId,
+    ref: "Comment"
+    }]
 })
 
 
