@@ -6,8 +6,9 @@
 
 .add-comment-container textarea {
     resize: none;
-    width: 30%;
+    width: 40%;
     height: 80px; 
+    border: 1px solid gainsboro;
 }
 
 .add-comment-container button {
@@ -15,7 +16,6 @@ border: none;
 background-color: rgb(245, 244, 239);
 font-weight: bold;
 color: rgb(87, 84, 61);
-/* margin-left: 15%; */
 margin-top: 0px;
 }
 
@@ -57,4 +57,25 @@ margin-top: 0px;
 .comment-container button:focus, button:visited {
     border: none;
     outline: none;
+}
+
+
+/* tablet */
+@media screen and (max-width: 768px){
+.comment-container {
+    width: 70%
+}
+.add-comment-container textarea {
+    width: 70%
+}
+}
+
+/* mobile */
+@media screen and (max-width: 480px){
+.comment-container{
+    width: 80%;
+}
+.add-comment-container textarea {
+    width: 80%;
+}   
 }

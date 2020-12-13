@@ -1,32 +1,25 @@
 .map-container {
     position: absolute;
     z-index: -1;
-    /* top: 50px; */
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    /* margin-top: 44px; */
     width: 100%;
     height: 100vh;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     }
 
    
-    .page-container {
-        display: inline-block;
-        z-index: 1 !important;
-        background-color: #404040;
-        /* background-color: rgb(87, 84, 61); */
-        color: rgb(245, 244, 239);
-        font-weight: bold;
-        padding: 6px;
-        margin: 12px;
-        top: 0;
-        left: 0;
+   .page-container {
+    display: inline-block;
+    z-index: 1 !important;
+    background-color: rgb(64, 64, 64, .8);
+    color: rgb(245, 244, 239);
+    font-weight: bold;
+    padding: 6px;
+    margin: 12px;
         }
+
 
     .page-container a {
         color: rgb(64, 64, 64);
@@ -49,17 +42,45 @@
 
 
     .sidebar-container h1 {
-          font-size: 18px;
+     font-size: 18px;
       }
 
 
     .sidebar-container button {
-            border: none;
+     border: none;
         }
 
+    .logout {
+    position: absolute;
+    bottom: 24px;
+    right: 16px;
+    }
 
-        @media screen and (max-width: 700px){
-            .map-container {
-                z-index: -1;
-            }
-          }
+/* tablet */
+@media screen and (max-width: 768px){
+ .map-container {
+    z-index: -1;
+ }
+}
+
+ /* mobile */
+@media screen and (max-width: 480px){
+.page-container {
+    display: flex;
+    width: 248px;
+    margin: 12px auto
+}
+.sidebar-container h1 {
+    font-size: 12px;
+}
+.sidebar-container h2 {
+    font-size: 10px;
+}
+.sidebar-container button {
+    width: 100%;
+}
+.logout {
+    bottom: 5px;
+    right: 0px;
+}
+}

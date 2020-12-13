@@ -6,11 +6,10 @@ import Signup from "./components/Signup";
 import Home from './components/Home'
 import Login from "./components/Login";
 import ToiletForm from "./components/ToiletForm";
-// import Dashboard from './components/Dashboard'
 import Map from './components/Map'
 import ToiletView from './components/ToiletView'
 import About from './components/About'
-import Profile from './components/Profile'
+
 
 class App extends React.Component {
   state = {
@@ -29,12 +28,12 @@ class App extends React.Component {
 
 getAllToilets = () => {
   axios
-    .get("/api/add/mytoilets") // /commetn?
+    .get("/api/add/mytoilets")
     .then(response => {
       this.setState({
         allToilets: response.data
       });
-      console.log(this.state.allToilets)
+      // console.log(this.state.allToilets)
     })
     .catch(err => {
       console.log(err);
@@ -72,7 +71,7 @@ getAllToilets = () => {
                 <Map
                   {...props}
                   user={this.state.user}
-                  // clearUser={this.setUser} // should go on Dahs component
+                  clearUser={this.setUser} 
               />)}/>
 
                
@@ -86,14 +85,14 @@ getAllToilets = () => {
                   user={this.state.user}  />}
                />
 
-             <Route exact path="/profiles/:username" 
+             {/* <Route exact path="/profiles/:username" 
               render={props => (
              <Profile 
              {...props}
              user={this.state.user}
              getAllToilets={this.getAllToilets} // ??????
           />
-        )}/>
+        )}/> */}
           </>
         </Switch>
       </div>

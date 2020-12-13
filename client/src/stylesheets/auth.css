@@ -5,7 +5,6 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    /* background-color: rgb(193,204, 215); */
     background-color: rgb(245, 244, 239);
 }
 
@@ -16,7 +15,7 @@
     align-items: center;
     justify-content: center;
     width: 30%;
-    height: 40%;
+    height: 42%;
     background-color: rgb(193, 204, 215);
 }
 
@@ -36,8 +35,6 @@
     color: darkolivegreen;
 }
 
-
-
 .input-container input {
     margin-top: 20px;
     width: 280px;
@@ -49,8 +46,6 @@
 
 
 .auth-button {
-    /* background-color: rgb(193,204, 215); */
-    /* border: none; */
     width: 280px;
     height: 40px;
     margin: 20px auto 10px auto;
@@ -61,11 +56,46 @@
 }
 
 .auth-button:hover {
-    /* color: darkolivegreen; */
     background-color: rgb(236, 236, 236)
 }
 
 .alert {
     color: rgb(64, 64, 64);
     font-weight: bold;
+
+}
+
+
+
+/* tablet++ */
+@media screen and (max-width: 968px){
+    .auth-page-container form {
+        width: 60%
+    }
+}
+
+
+/* mobile */
+@media screen and (max-width: 480px){
+    .auth-page-container form {
+        width: 70%;
+        height: 50%;
+    }
+
+    .auth-page-container h1 {
+        font-size: 24px;
+
+    }
+
+    .input-container input {
+        width: 210px;
+    }
+
+    .auth-button { 
+        height: 40px;
+        width: 210px;
+    }
+    .auth-page-container p {
+        margin-bottom: 0;
+    }
 }

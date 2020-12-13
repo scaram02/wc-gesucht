@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { withRouter } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from "axios";
 import mapboxgl from 'mapbox-gl';
 import '../stylesheets/map.css'
+import { logout } from "../services/auth";
+import logoutIcon from '../images/logout.png'
 
 
 
 
 // make this private!
-// mapboxgl.accessToken = `pk.eyJ1Ijoic2NhcmFtMDIiLCJhIjoiY2tha2EzeGdjMDBwNzJ3cnR4NTY0c2xueSJ9.okEwbRZu2x0aIbks4zmeVA`
 mapboxgl.accessToken = `pk.eyJ1Ijoic2NhcmFtMDIiLCJhIjoiY2syenk4YTlxMGtqejNncDhwb29yNDF5cCJ9.p5Vo_c8qKilksBjL-TZZyg`
 
 
@@ -18,13 +18,12 @@ export default class Map extends Component {
         super(props);
         this.state = {
         allToilets: [],
-        lng: 5,
-        lat: 45,
-        zoom: 3,
+        lng: 8,
+        lat: 48,
+        zoom: 4,
         }
 
-        // this.handleSubmit = this.handleSubmit.bind(this)
-        // this.getMarkers = this.getMarkers.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
         };
 
         componentDidMount() {
@@ -46,7 +45,7 @@ export default class Map extends Component {
 
             let marker = new mapboxgl.Marker({
                 draggable: true,
-                color: 'black' //midnightblue rgb(53, 54, 58
+                color: 'black' 
             }).setLngLat([13.40, 52.52]).addTo(map) 
 
 
@@ -60,8 +59,7 @@ export default class Map extends Component {
                 })
                 console.log("Marker location: ", this.state.lng, this.state.lat)
             })
-
-    // this miht be te getalltoilets
+// getAllToilets
             axios
             .get('/api/add', {})
             .then(res => {
@@ -80,7 +78,7 @@ export default class Map extends Component {
                 
                
                 const coords = [toilet.lng, toilet.lat]
-                const color = ((toilet.free || toilet.cost == 0)? "darkolivegreen" : "darkred")
+                const color = ((toilet.free || toilet.cost === 0)? "darkolivegreen" : "darkred")
                 
                 new mapboxgl.Marker({draggable: false, color: color})
                   .setLngLat(coords)
@@ -95,7 +93,10 @@ export default class Map extends Component {
 
 
             
-            
+     handleLogout = () => {
+      logout();
+      this.props.clearUser(null);
+              };       
 
 
 
@@ -139,9 +140,13 @@ handleSubmit = event => {
                 </div>
                 
                 <div ref={el => this.mapContainer = el} className="map-container"/>
-                <div>
-                   </div>
+               
                 </div>
+                <div className="logout">
+                <Link to="/" onClick={this.handleLogout}>
+              <img src={logoutIcon} alt="logout button icon" height={50} width={70} />
+            </Link>
+                   </div>
             </div>
         )
     }

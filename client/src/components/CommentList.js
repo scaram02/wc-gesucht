@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+
 
 const CommentList = props => {
 
@@ -18,7 +18,7 @@ const CommentList = props => {
       <>
         {props.toilet.comments && props.toilet.comments
         .map(comment => {
-            const date = comment.createdAt.split('T')[0]
+            const date = comment.createdAt.split('T')[0].split('-').reverse().join('.')
             return (
               <div key={comment._id} className='comment-container'>
                 {/* <p>On {date} <Link to={`/profiles/${comment.user.username}`} >{comment.user.username}</Link> commented:</p> */}

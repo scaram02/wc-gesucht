@@ -14,7 +14,8 @@
 }
 
 .toilet-infos {
-   margin: 20px 300px;
+   margin: 20px auto;
+   padding: 0px 20%
 }
 
 .toilet-infos h2 {
@@ -35,7 +36,6 @@
 }
 
 .author {
-    /* text-align: left; */
     font-weight: bold;
     margin: 30px 0px 0px 0px;
 }
@@ -57,8 +57,8 @@
 
 
 .perks {
- display: flex; 
- flex-direction: row;
+display: flex; 
+flex-direction: row;
 flex-wrap: wrap;
 justify-content: center;
 width: 100%;
@@ -67,8 +67,6 @@ margin: auto
 }
 
 .perks p{
-    /* display: flex; */
-    /* flex-direction: row; */
     background-color: darkolivegreen;
     margin: 10px;
     padding: 3px 15px;
@@ -77,3 +75,17 @@ margin: auto
     font-weight: bold;
 }
 
+/* tablet */
+@media screen and (max-width: 768px){
+    .toilet-infos {
+        margin: 25px 50px;
+        padding: 0px 10%
+    }
+}
+
+/* mobile */
+@media screen and (max-width: 480px){
+    .toilet-infos {
+        margin: 25px 0px;
+    }
+}

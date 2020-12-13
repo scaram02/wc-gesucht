@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+// import ReactStars from "react-rating-stars-component";
 import axios from 'axios'
 import Comments from './Comments'
-import Nav from './Nav'
 import '../stylesheets/toiletView.css'
-
 
 
 class ToiletView extends Component {
@@ -23,7 +22,6 @@ componentDidMount(){
 
 
 getSingleToilet = () => {
-    // const {params} = this.props.match;
     const id = this.props.match.params.id
     axios
     .get(`/api/add/${id}`)
@@ -46,6 +44,10 @@ deleteTheToilet = () => {
         console.log(err)
     })
 }
+
+ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
 
     render(){
     const sameUser = (this.state.user && (this.props.user._id === this.state.user._id))
@@ -84,6 +86,13 @@ deleteTheToilet = () => {
               
               <Link to='/dashboard'>Back to map</Link>
               </div>
+              
+              {/* <ReactStars
+    count={5}
+    onChange={this.ratingChanged}
+    size={24}
+    activeColor="#ffd700"
+  /> */}
               
               <Comments 
               user={this.props.user} 

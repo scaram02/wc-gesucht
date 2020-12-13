@@ -1,11 +1,11 @@
 .about-page-container {
     margin: auto;
-    /* width: 60%; */
     padding: 10px;
     color: rgb(64, 64, 64);
     background-color: rgb(245, 244, 239);
     height: 100vh;
     display: flex;
+    overflow: auto;
 }
 
 .about {
@@ -23,3 +23,29 @@
     color: darkolivegreen;
     text-decoration: none;
 }
+
+ /* tablet */
+ @media screen and (max-width: 768px){
+    .about {
+        width: 75%;
+    }
+    .about h1 {
+        padding-bottom: 50px
+    }
+    }
+
+
+ /* mobile */
+ @media screen and (max-width: 480px){
+.about {
+    width: 85%;
+}
+.about h1 {
+    font-size: 1.7rem;
+    padding-bottom: 5px;
+}
+.about h2 {
+    font-size: 1.3rem;
+}
+ }
+

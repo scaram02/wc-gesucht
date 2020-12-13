@@ -2,15 +2,13 @@
     background-color: rgb(245, 244, 239);
     height: 100vh;
     position: relative;
-    /* color: rgb(64, 64, 64); */
 }
 
 .form-container form {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 40%;
     margin: 0; 
-    /* margin: auto ?? */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -35,6 +33,9 @@ display: flex;
 flex-direction: column;
 }
 
+input[type="checkbox"] {
+    /* display: none; */
+}
 
 span {
     margin-left: 10px;
@@ -53,3 +54,21 @@ span {
 .form-container button:hover {
     background-color: rgb(179, 196, 212)
 }
+
+
+
+/* tablet */
+@media screen and (max-width: 768px){
+    .form-container form {
+        width: 75%;
+    }
+}
+
+
+ /* mobile */
+ @media screen and (max-width: 480px){
+    .form-container textarea, select, input:not([type='checkbox']) {
+        font-size: 10px;
+    }
+
+ }
