@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import '../stylesheets/toiletForm.css'
+import checkedIcon from '../images/checked.png'
+import uncheckedIcon from '../images/unchecked.png'
 
 
 
@@ -129,52 +131,45 @@ axios
                 <option value="Other">Other</option>
               </select>
 
-              {cost}
-<label style={{marginTop: "15px"}}>
-  <input type="checkbox" 
-  checked={this.state.free} 
-  onChange={this.handleFreeChecks} 
-  name="free"/><span>No cost</span>
-</label>
+              {cost} 
 
 
-
-<div className='checkboxes'>
-<label>
-  <input type="checkbox" 
-  value='genderNeutral' 
-  onChange={this.handleGenderChecks} 
-  name="genderNeutal"
-  />
-  <span>Gender neutral</span>
-</label>
-<label>
-  <input type="checkbox" 
-  checked={this.state.femProd} 
-  onChange={this.handleFemProdChecks} 
-  name="femProd"/><span>Feminine Products</span>
-</label>
-<label>
-  <input type="checkbox" 
-  checked={this.state.changingTable} 
-  onChange={this.handleChangingTableChecks} 
-  name="changingTable"/><span>Infant Changing Table</span>
-</label>
-<label>
-  <input type="checkbox" 
-  checked={this.state.barrierFree} 
-  onChange={this.handleBarrierChecks} 
-  name="barrierFree"/><span>Wheelchair accessible</span>
-</label>
-
-
-
+{/* so begin the checkboxes */}
+<div className="check-container">
+<div className="check-div" onClick={this.handleFreeChecks} checked={this.state.free} >
+<img src={this.state.free? checkedIcon : uncheckedIcon} alt="cost is free checkbox"
+  name="free"/>
+  <p>No cost</p>
+</div>
+<br />
+<div className="check-div" onClick={this.handleGenderChecks} checked={this.state.genderNeutral} >
+<img src={this.state.genderNeutral? checkedIcon : uncheckedIcon} alt="gender neutral checkbox"
+  name="genderNeutral"/>
+  <p>Gender neutral</p>
 </div>
 
-                <button className="button" type="submit">Submit a review</button>
-                </form>
-            </div>
-            </div>
+<div className="check-div" onClick={this.handleFemProdChecks} checked={this.state.femProd} >
+<img src={this.state.femProd? checkedIcon : uncheckedIcon} alt="feminine product checkbox"
+  name="femProd"/>
+  <p>Feminine products</p>
+</div>
+
+<div className="check-div" onClick={this.handleChangingTableChecks} checked={this.state.changingTable} >
+<img src={this.state.changingTable? checkedIcon : uncheckedIcon} alt="changing table checkbox"
+  name="changingTable"/>
+  <p>Changing table</p>
+</div>
+<div className="check-div" onClick={this.handleBarrierChecks} checked={this.state.barrierFree} >
+<img src={this.state.barrierFree? checkedIcon : uncheckedIcon} alt="wheelchair accessible checkbox"
+  name="barrierFree"/>
+  <p>Wheelchair accessible</p>
+</div>
+</div>
+
+ <button className="button" type="submit">Submit a review</button>
+</form>
+</div>
+</div>
         )
     }
 }

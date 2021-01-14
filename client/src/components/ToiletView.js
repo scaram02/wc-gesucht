@@ -45,19 +45,26 @@ deleteTheToilet = () => {
     })
 }
 
-ratingChanged = (newRating) => {
-    console.log(newRating);
-  };
+// ratingChanged = (newRating) => {
+//     console.log(newRating);
+//   };
 
     render(){
+    // math user for extra permissions
     const sameUser = (this.state.user && (this.props.user._id === this.state.user._id))
     const matchUserForDelete = sameUser? <button className='delete-toilet' onClick={this.deleteTheToilet}>Remove this review</button> : <div></div>
-    const calculatedPrice = (this.state.cost < 1)? `0.${this.state.cost*100}` : (this.state.cost === 1)? this.state.cost : `${this.state.cost}0`
-    const typeDisplay = this.state.locType? <h3>Restroom type: {this.state.locType}</h3> : <div></div>
 
+    // calculate the price allowing for decimals/no decimals
+    const calculatedPrice = (this.state.cost < 1)? `0.${this.state.cost*100}` : (this.state.cost === 1)? this.state.cost : (this.state.cost <= 2)? `${this.state.cost}0` : `0.${this.state.cost}`
+    // display the price color based on calculatedPrice
     let costColor;
     (this.state.cost === 0 || this.state.free)? costColor = 'darkolivegreen' : costColor="darkred"
 
+
+    const typeDisplay = this.state.locType? <h3>Restroom type: {this.state.locType}</h3> : <div></div>
+
+
+    // here are the perks
     const genderNeutral = this.state.genderNeutral? <p>Gender Neutral</p> : <div></div>
     const fem = this.state.femProd? <p>Feminine Products</p> : <div></div>
     const changingTable = this.state.changingTable? <p>Infant Changing Table</p> : <div></div>

@@ -28,15 +28,29 @@
 }
 
 
-.checkboxes {
-display: flex;
-flex-direction: column;
+
+.check-container {
+    display: flex;
+    flex-direction: column;
+
+}
+.check-div {
+    display: flex;
+    flex-direction: row;
 }
 
-input[type="checkbox"] {
-    /* display: none; */
+.check-div img {
+    height: 15px;
+    width: 15px;
+    margin-top: 5px;
 }
 
+.check-div p {
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+
+/* check this out. need it? */
 span {
     margin-left: 10px;
 }
