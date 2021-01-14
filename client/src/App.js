@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios'
 import Signup from "./components/Signup";
 import Home from './components/Home'
@@ -9,6 +9,7 @@ import ToiletForm from "./components/ToiletForm";
 import Map from './components/Map'
 import ToiletView from './components/ToiletView'
 import About from './components/About'
+
 
 
 class App extends React.Component {
@@ -63,7 +64,10 @@ getAllToilets = () => {
             path="/add/:id"
             render={props => <ToiletForm {...props} user={this.state.user} />}
           />
+          
           <>
+          {this.state.user?
+           (
            <Route
               exact
               path="/dashboard"
@@ -72,9 +76,14 @@ getAllToilets = () => {
                   {...props}
                   user={this.state.user}
                   clearUser={this.setUser} 
-              />)}/>
+              />
+              )}/>
+    )
+    : <Redirect to="/" />
+  }
 
-               
+               {this.state.user?
+               (
                <Route 
                 exact path="/toilets/:id" 
                 render={props => 
@@ -83,17 +92,22 @@ getAllToilets = () => {
                   state={this.state} // ??
                   getAllToilets={this.getAllToilets}
                   user={this.state.user}  />}
-               />
+               />)
+               : <Redirect to='/' />
+                }
+
 
              {/* <Route exact path="/profiles/:username" 
               render={props => (
              <Profile 
              {...props}
              user={this.state.user}
-             getAllToilets={this.getAllToilets} // ??????
+             getAllToilets={this.getAllToilets} // ?
           />
         )}/> */}
           </>
+    
+
         </Switch>
       </div>
     );

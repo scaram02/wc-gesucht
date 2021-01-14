@@ -16,14 +16,13 @@ const CommentList = props => {
 
     const commentList = (
       <>
-        {props.toilet.comments && props.toilet.comments
+        {props.toilet.comments && props.toilet.comments.reverse()
         .map(comment => {
             const date = comment.createdAt.split('T')[0].split('-').reverse().join('.')
             return (
               <div key={comment._id} className='comment-container'>
                 {/* <p>On {date} <Link to={`/profiles/${comment.user.username}`} >{comment.user.username}</Link> commented:</p> */}
                 <p>On {date} {comment.user.username} commented:</p>
-
                 <p>{comment.comment}</p>
                 {comment.user.username === props.user.username? <button onClick={()=> deleteComment(comment._id)}>Delete this comment</button> : <div></div>}
               </div>
