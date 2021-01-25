@@ -50,7 +50,7 @@ deleteTheToilet = () => {
 //   };
 
     render(){
-    // math user for extra permissions
+    // match user for extra permissions
     const sameUser = (this.state.user && (this.props.user._id === this.state.user._id))
     const matchUserForDelete = sameUser? <button className='delete-toilet' onClick={this.deleteTheToilet}>Remove this review</button> : <div></div>
 
@@ -62,7 +62,6 @@ deleteTheToilet = () => {
 
 
     const typeDisplay = this.state.locType? <h3>Restroom type: {this.state.locType}</h3> : <div></div>
-
 
     // here are the perks
     const genderNeutral = this.state.genderNeutral? <p>Gender Neutral</p> : <div></div>

@@ -64,7 +64,7 @@ export default class Map extends Component {
             .get('/api/add', {})
             .then(res => {
                 const data = res.data
-
+// .filter((t) => (t.cost === 0 || t.free)) filter here if you want but hwo? this is componentDidMount
                 data.forEach(toilet => {
                 
                 const calcCost = (toilet.cost < 1)? `0.${toilet.cost*100}` : (toilet.cost === 1)? toilet.cost : `${toilet.cost}0`
