@@ -7,7 +7,7 @@ import Home from './components/Home'
 import Login from "./components/Login";
 import ToiletForm from "./components/ToiletForm3";
 import Map from './components/Map'
-import ToiletView from './components/ToiletView'
+import ToiletView from './components/ToiletView2'
 import About from './components/About'
 
 
