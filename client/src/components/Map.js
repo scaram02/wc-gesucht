@@ -11,7 +11,7 @@ import logoutIcon from '../images/logout.png'
 
 // make this private!
 mapboxgl.accessToken = `pk.eyJ1Ijoic2NhcmFtMDIiLCJhIjoiY2syenk4YTlxMGtqejNncDhwb29yNDF5cCJ9.p5Vo_c8qKilksBjL-TZZyg`
-
+// mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 
 export default class Map extends Component {
     constructor(props) {
@@ -27,6 +27,7 @@ export default class Map extends Component {
         };
 
         componentDidMount() {
+
             const map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/scaram02/ckh6mzfik0ij019p5lwmpqjrx',
@@ -64,7 +65,7 @@ export default class Map extends Component {
             .get('/api/add', {})
             .then(res => {
                 const data = res.data
-// .filter((t) => (t.cost === 0 || t.free)) filter here if you want but hwo? this is componentDidMount
+// .filter((t) => (t.cost === 0 || t.free)) filter here if you want 
                 data.forEach(toilet => {
                 
                 const calcCost = (toilet.cost < 1)? `0.${toilet.cost*100}` : (toilet.cost === 1)? toilet.cost : `${toilet.cost}0`

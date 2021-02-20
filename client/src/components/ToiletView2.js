@@ -7,8 +7,7 @@ import '../stylesheets/toiletView.css'
 
 function ToiletView(props) {
 
-    // const [toilet, setToilet] = useState({ toilets: []});
-    const [data, setData] = useState({toilet: []});
+    const [data, setData] = useState({toilet: [], user: props.user});
 
     
 
@@ -59,7 +58,7 @@ const barrierFree = data.barrierFree? <p>Wheelchair accessible</p> : <div/>
         
         <Link to='/dashboard'>Back to map</Link>
         </div>
-
+{data.user.username}
         <Comments 
               user={props.user} 
               toiletId={props.match.params.id}

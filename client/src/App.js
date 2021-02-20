@@ -5,9 +5,9 @@ import axios from 'axios'
 import Signup from "./components/Signup";
 import Home from './components/Home'
 import Login from "./components/Login";
-import ToiletForm from "./components/ToiletForm3";
+import ToiletForm from "./components/ToiletForm";
 import Map from './components/Map'
-import ToiletView from './components/ToiletView2'
+import ToiletView from './components/ToiletView'
 import About from './components/About'
 
 
